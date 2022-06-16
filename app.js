@@ -40,18 +40,27 @@ const sequelize = new Sequelize({
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  // next(createError(404));
+  const err = new Error();
+  err.status = 404;
+  err.message = 'Page Not Found';
+  console.log('Page not found. Error status ' + `${err.status} ` + ' Error Message ' + `${err.message}`);
+  next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  err.status = err.status || 500;
+  res.status(err.status);
+
+  if(err.status === 404){
+    res.render('page-not-found', { err });
+  } else {
+    err.message = err.message || `We're sorry! Something has gone wrong.`;
+    console.log('An error occurred with status' + `${err.status}` + 'Error Message ' + `${err.message}`);
+    res.render('error', { err });
+  }
 });
 
 module.exports = app;

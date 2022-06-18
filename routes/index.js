@@ -26,14 +26,20 @@ router.get('/books', asyncHandler(async (req, res) => {
 /* Shows the create a new book form. */
 router.get('/books/new', asyncHandler(async (req, res) => {
   res.render("new-book", { title: "New Book"});
-});
+}));
 
 router.post('/books/new', asyncHandler(async (req,res) => {
   const book = await Book.create(req.body);
+  console.log(book);
   res.redirect("/books/");
 }));
 
 router.get('/books/:id', asyncHandler(async (req, res) => {
+  const book = await Book.findByPk(req.param.id);
+  res.render("update-book", { book, title: 'Update Book'});
+}));
+
+router.post('/books/:id', asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.param.id);
   res.render("update-book", { book, title: 'Update Book'});
 }));

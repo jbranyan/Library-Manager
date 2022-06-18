@@ -1,9 +1,15 @@
 'use strict';
+const sequelize = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   const Book = sequelize.define('Book', {
+    id: {
+      type: sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     title: {
-      type: DataTypes.STRING,
+      type: sequelize.STRING,
       allowNull: false,
       validate: {
         notEmpty: {
@@ -15,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     author: {
-      type: DataTypes.STRING,
+      type: sequelize.STRING,
       allowNull: false,
       validate: {
         notEmpty: {
@@ -26,8 +32,8 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    genre: DataTypes.STRING,
-    year: DataTypes.INTEGER
+    genre: sequelize.STRING,
+    year: sequelize.INTEGER
   }, {});
   Book.associate = function(models) {
     // associations can be defined here

@@ -35,13 +35,18 @@ router.post('/books/new', asyncHandler(async (req,res) => {
 }));
 
 router.get('/books/:id', asyncHandler(async (req, res) => {
-  const book = await Book.findByPk(req.param.id);
+  const book = await Book.findByPk(req.params.id);
   res.render("update-book", { book, title: 'Update Book'});
 }));
 
 router.post('/books/:id', asyncHandler(async (req, res) => {
-  const book = await Book.findByPk(req.param.id);
-  res.render("update-book", { book, title: 'Update Book'});
+  const book = await Book.findByPk(req.params.id);
+  if(book){
+    await book.update(req.body);
+    res.redirect("/books/");
+  } else{
+    res.redirect("update-book", { book, title: 'Update Book'});
+  }
 }));
 
 
@@ -49,9 +54,9 @@ router.post('/books/:id', asyncHandler(async (req, res) => {
 // get / - Home route should redirect to the /books route - done
 // get /books - Shows the full list of books - done -- fix the name link on the view
 // get /books/new - Shows the create new book form --done
-// post /books/new - Posts a new book to the database -- need to test it
-// get /books/:id - Shows book detail form
-// post /books/:id - Updates book info in the database
+// post /books/new - Posts a new book to the database -- done 
+// get /books/:id - Shows book detail form -- done
+// post /books/:id - Updates book info in the database -- done
 // post /books/:id/delete - Deletes a book. Careful, this can’t be undone. It can be helpful to create a new “test” book to test deleting
 
 module.exports = router;

@@ -4,6 +4,13 @@ block content
 
     h1= title
 
+    if(errors)
+        h2.errors Oooops!
+        ul.errors
+            each error in errors
+                li
+                    =error.message
+
     form(method='POST' action='/books/new')
         p
             label(for="title") Title:

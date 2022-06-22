@@ -92,6 +92,10 @@ input[type=text] {
   width: 300px;
 }
 
-.error {
+.errors {
   color: rgb(236, 15, 15);
 }
+
+h2.errors {
+  color: rgb(236, 15, 15);
+ }

@@ -47,7 +47,11 @@ router.post('/books/new', asyncHandler(async (req,res) => {
 /* Gets a book title. */
 router.get('/books/:id', asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id);
-  res.render("update-book", { book, title: 'Update Book'});
+  if(book){
+    res.render("update-book", { book, title: 'Update Book'});
+  } else{
+    next();
+  }
 }));
 
 /* Updates the book in the database. */

@@ -15,7 +15,7 @@ function asyncHandler(cb){
 /* GET home page and redirect to books. */
 router.get('/', async function(req, res) {
   res.redirect("/books");
-});
+}); 
 
 /* Shows the full list of books. */
 router.get('/books', asyncHandler(async (req, res) => {
@@ -25,7 +25,7 @@ router.get('/books', asyncHandler(async (req, res) => {
 
 /* Shows the create a new book form. */
 router.get('/books/new', asyncHandler(async (req, res) => {
-  res.render("new-book", { title: "New Book"});
+  res.render("new-book", {book:{title: "", author: "", genre: "", year: "" }, title: "New Book"});
 }));
 
 /* Creates a new book in the database. */
